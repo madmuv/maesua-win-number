@@ -1,0 +1,2 @@
+rootProject.name = "maesua_win_number"
+include ':app'
