@@ -23,9 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="64dp"
         android:layout_marginTop="16dp"
-        android:maxLength="5"
-        android:inputType="number"
         android:autofillHints="ใส่เลขวินตรงนี้เลยจ้า"
+        android:inputType="number"
+        android:maxLength="5"
         app:layout_constraintTop_toBottomOf="@+id/header_title" />
 
     <Button
@@ -35,8 +35,8 @@
         android:layout_marginHorizontal="32dp"
         android:layout_marginTop="16dp"
         android:text="วิน"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_number" />
 
     <TextView
@@ -45,6 +45,18 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="64dp"
         android:layout_marginTop="32dp"
+        android:clickable="true"
         app:layout_constraintTop_toBottomOf="@+id/submit_button" />
+
+    <Button
+        android:id="@+id/copy_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="16dp"
+        android:text="Copy ผล"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/result_number" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
