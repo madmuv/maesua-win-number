@@ -84,11 +84,12 @@ class MainActivity : AppCompatActivity() {
         arrayTriple.sort()
 
 
-        val firstLine = arrayCouple.subList(0,5).joinToString("  ")
-        val secondLine = arrayCouple.subList(5,10).joinToString("  ")
+        val firstLine = arrayCouple.subList(0,5).joinToString(" ")
+        val secondLine = arrayCouple.subList(5,10).joinToString(" ")90-=erty
 
-        val thirdLine = arrayTriple.subList(0,5).joinToString("  ")
-        val forthLine = arrayTriple.subList(5,10).joinToString("  ")
+
+        val thirdLine = arrayTriple.subList(0,5).joinToString(" ")
+        val forthLine = arrayTriple.subList(5,10).joinToString(" ")
 
         val result = firstLine
             .plus("\n")
