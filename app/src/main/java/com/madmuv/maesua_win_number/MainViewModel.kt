@@ -5,10 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class MainViewModel: ViewModel() {
+class MainViewModel : ViewModel() {
 
-    val enableCopyButton = SingleLiveEvent<Unit>()
+    val enableCopyTextView = SingleLiveEvent<Unit>()
     val resultNumber = MutableLiveData<String>()
+    val clearTextEvent = SingleLiveEvent<Unit>()
 
     fun calculateNumber(number: String) {
         viewModelScope.launch {
@@ -33,30 +34,29 @@ class MainViewModel: ViewModel() {
             arrayCouple.sort()
             arrayTriple.sort()
 
-            arrayCouple.toMutableList().mapIndexed { index, s ->
-                if (index % 6 == 0) {
-                    arrayCouple.add(index, "\n")
-                }
-            }
+            val result = arrayCouple.chunked(5).joinToString("\n") + "\n\n" + arrayTriple.chunked(5)
+                .joinToString("\n")
 
-            arrayTriple.toMutableList().mapIndexed { index, s ->
-                if (index % 6 == 0) {
-                    arrayTriple.add(index, "\n")
-                }
-            }
+            resultNumber.value = result
+                .replace("[", "")
+                .replace("]", "")
+                .replace(",", "")
 
-            resultNumber.value = arrayCouple.joinToString(" ") + "\n" + arrayTriple.joinToString(" ")
             checkEnableCopyButton()
         }
     }
 
     fun getResultNumber(): String {
-        return resultNumber.value ?:""
+        return resultNumber.value ?: ""
     }
 
     fun checkEnableCopyButton() {
         if (resultNumber.value != "" || resultNumber.value != null) {
-            enableCopyButton.value = Unit
+            enableCopyTextView.value = Unit
         }
+    }
+
+    fun clearText() {
+        clearTextEvent.value = Unit
     }
 }

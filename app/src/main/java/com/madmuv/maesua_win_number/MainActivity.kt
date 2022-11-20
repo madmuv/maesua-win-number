@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     fun initView() {
         binding.submitButton.isEnabled = false
 
-        binding.copyButton.isEnabled = false
+        binding.resultNumber.isClickable = false
 
         binding.submitButton.setOnClickListener {
             mViewModel.calculateNumber(binding.inputNumber.text.toString())
@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.inputNumber.doOnTextChanged { text, _, _, _ ->
             binding.submitButton.isEnabled = (text?.length ?: 0) >= 3
+            if (text.isNullOrBlank()) mViewModel.clearText()
         }
 
         binding.inputNumber.setOnEditorActionListener { _, actionId, _ ->
@@ -45,10 +46,11 @@ class MainActivity : AppCompatActivity() {
             false
         }
 
-        binding.copyButton.setOnClickListener {
+        binding.resultNumber.setOnClickListener {
             val clipBoard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("label", mViewModel.getResultNumber())
             clipBoard.setPrimaryClip(clip)
+            Toast.makeText(this, "copy ผลเรียบร้อยแล้ว", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -61,8 +63,12 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "copy ผลเรียบร้อยแล้ว", Toast.LENGTH_SHORT).show()
         }
 
-        mViewModel.enableCopyButton.observe(this) {
-            binding.copyButton.isEnabled = true
+        mViewModel.enableCopyTextView.observe(this) {
+            binding.resultNumber.isClickable = true
+        }
+
+        mViewModel.clearTextEvent.observe(this) {
+            binding.resultNumber.text = ""
         }
     }
 
